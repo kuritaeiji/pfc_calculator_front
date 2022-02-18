@@ -1,5 +1,5 @@
-const appName = process.env.APP_NAME
-const baseURL = process.env.BASE_URL
+const appName = process.env.APP_NAME || 'PFC計算機'
+const baseURL = process.env.BASE_URL || 'https://pfc-calculator-back.herokuapp.com'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
