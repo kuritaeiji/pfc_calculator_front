@@ -9,3 +9,5 @@ ENV LANG=C.UTF-8 \
 COPY . /app
 
 RUN yarn install
+
+RUN yarn build
