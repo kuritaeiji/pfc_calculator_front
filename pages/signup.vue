@@ -6,8 +6,11 @@
           {{ title }}
         </v-card-title>
 
+        <ui-validation />
+
         <v-form ref="form" v-model="isValid">
           <v-text-field
+            v-model="params.user.email"
             outlined
             label="メールアドレス"
             placeholder="user@example.com"
@@ -15,6 +18,7 @@
             :rules="emailRules"
           />
           <v-text-field
+            v-model="params.user.password"
             outlined
             label="パスワード"
             placeholder="8文字以上"
@@ -46,6 +50,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import { presence, longer, shorter, email, password } from '@/validators'
 
 export default {
@@ -71,13 +76,17 @@ export default {
     }
   },
   methods: {
-    signup () {
+    ...mapActions('snackbar', ['setSnackbar']),
+    async signup () {
       if (this.isValid) {
         this.isLoading = true
-        // await this.$axios.$post('/api/v1/signup', { params: this.params })
-        setTimeout(() => {
+        try {
+          await this.$axios.$post('/api/v1/signup', this.params)
+          this.setSnackbar(this.$t('snackbar.signup'))
+          this.$router.push('/')
+        } catch (error) {
           this.isLoading = false
-        }, 2000)
+        }
       }
     }
   }
