@@ -29,14 +29,14 @@ export default {
     '@/assets/main.scss'
   ],
 
+  // Auto import components: https://go.nuxtjs.dev/config-components
+  components: true,
+
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     'plugins/axios',
     'plugins/utils'
   ],
-
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -62,7 +62,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -78,6 +79,23 @@ export default {
     langDir: '@/locales/',
     vueI18n: {
       fallbackLocale: 'ja'
+    }
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          name: 'Authorization',
+          maxAge: 365 * 12 * 60 * 60
+        },
+        endpoints: {
+          login: { url: '/api/v1/login', method: 'post' },
+          logout: { url: '/api/v1/logout', method: 'delete' },
+          user: false
+        }
+      }
     }
   },
 

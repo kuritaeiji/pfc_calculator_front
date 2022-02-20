@@ -3,11 +3,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import pageTitle from '~/mixins/pageTitle'
 
 export default {
   mixins: [pageTitle],
   layout: 'beforeLoggedIn',
+  middleware: 'auth',
+  auth: 'guest',
   data () {
     return {
       isLoading: false,
@@ -20,11 +23,23 @@ export default {
     }
   },
   methods: {
-    login () {
+    ...mapActions('validation', ['setValidation']),
+    async login () {
       this.isLoading = true
-      setTimeout(() => {
-        this.isLoading = false
-      }, 1000)
+      try {
+        await this.$auth.loginWith('local', { data: this.params })
+      } catch (error) {
+        this.reject(error)
+      }
+    },
+    reject ({ response: { status } }) {
+      if (status === 401) {
+        this.setValidation([this.$t('validation.login.invalidEmailPassword')])
+      }
+      if (status === 403) {
+        this.setValidation([this.$t('validation.login.notActivated')])
+      }
+      this.isLoading = false
     }
   }
 }

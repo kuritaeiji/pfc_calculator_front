@@ -1,6 +1,7 @@
 <script>
 export default {
   layout: 'empty',
-  middleware: 'activate'
+  middleware: ['activate', 'auth'],
+  auth: 'guest'
 }
 </script>

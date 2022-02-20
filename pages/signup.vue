@@ -9,6 +9,8 @@ import pageTitle from '~/mixins/pageTitle'
 export default {
   mixins: [pageTitle],
   layout: 'beforeLoggedIn',
+  middleware: 'auth',
+  auth: 'guest',
   data () {
     return {
       isLoading: false,

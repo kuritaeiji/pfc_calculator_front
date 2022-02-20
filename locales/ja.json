@@ -7,5 +7,11 @@
     "signup": "有効化メールを送信しました",
     "expiredActivate": "期限切れのリンクです",
     "dublicateActivate": "既に有効化されています"
+  },
+  "validation": {
+    "login": {
+      "invalidEmailPassword": "メールアドレスまたはパスワードが間違っています",
+      "notActivated": "有効化されていないユーザーです"
+    }
   }
 }
