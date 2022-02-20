@@ -92,7 +92,6 @@ export default {
         },
         endpoints: {
           login: { url: '/api/v1/login', method: 'post' },
-          logout: { url: '/api/v1/logout', method: 'delete' },
           user: false
         }
       }
