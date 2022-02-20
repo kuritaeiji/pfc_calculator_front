@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <ui-snackbar />
     <v-container fluid fill-height class="main-background-color">
       <v-row justify="center" align="center">
         <v-col cols="12" sm="10" lg="8">

@@ -2,5 +2,10 @@
   "title": {
     "login": "ログイン",
     "signup": "会員登録"
+  },
+  "snackbar": {
+    "signup": "有効化メールを送信しました",
+    "expiredActivate": "期限切れのリンクです",
+    "dublicateActivate": "既に有効化されています"
   }
 }
