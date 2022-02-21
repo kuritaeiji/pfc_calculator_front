@@ -1,10 +1,6 @@
 <template>
   <v-app-bar app absolute flat color="white">
-    <nuxt-link to="/" class="text-decoration-none">
-      <v-app-bar-title class="font-weight-bold greenText--text text-h5">
-        {{ appName }}
-      </v-app-bar-title>
-    </nuxt-link>
+    <ui-app-bar-title />
 
     <v-spacer />
 
@@ -16,13 +12,3 @@
     </v-btn>
   </v-app-bar>
 </template>
-
-<script>
-export default {
-  data ({ $config: { appName } }) {
-    return {
-      appName
-    }
-  }
-}
-</script>

@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <logged-in-app-bar />
     <v-main class="main-background-color">
       <nuxt />
     </v-main>

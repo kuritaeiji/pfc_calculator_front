@@ -1,5 +1,7 @@
 <script>
 export default {
-  layout: 'toppage'
+  layout ({ $auth }) {
+    return $auth.loggedIn ? 'default' : 'toppage'
+  }
 }
 </script>

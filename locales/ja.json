@@ -1,11 +1,20 @@
 {
   "title": {
     "login": "ログイン",
-    "signup": "会員登録"
+    "signup": "会員登録",
+    "logout": "ログアウト",
+    "withdraw": "退会",
+    "categories": "カテゴリー一覧"
   },
   "snackbar": {
     "signup": "有効化メールを送信しました",
     "expiredActivate": "期限切れのリンクです",
     "dublicateActivate": "既に有効化されています"
+  },
+  "validation": {
+    "login": {
+      "invalidEmailPassword": "メールアドレスまたはパスワードが間違っています",
+      "notActivated": "有効化されていないユーザーです"
+    }
   }
 }
