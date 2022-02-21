@@ -43,7 +43,8 @@ export default {
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/moment'
   ],
 
   vuetify: {
@@ -52,10 +53,15 @@ export default {
         light: {
           greenText: colors.green.accent2,
           greyText: colors.grey.darken1,
-          btnPrimary: colors.lightBlue.accent2
+          btnPrimary: colors.lightBlue.accent2,
+          btnPink: colors.pink.lighten1
         }
       }
     }
+  },
+
+  moment: {
+    locales: ['ja']
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
