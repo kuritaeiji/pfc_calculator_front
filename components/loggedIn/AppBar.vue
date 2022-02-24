@@ -73,12 +73,6 @@ export default {
       ]
     }
   },
-  computed: {
-    weekdayFormat (date) {
-      debugger
-      return date
-    }
-  },
   methods: {
     async logout () {
       await this.$auth.logout()
@@ -89,8 +83,9 @@ export default {
     confirmWithdraw () {
       this.dialog = true
     },
-    withdraw () {
-      console.log('退会')
+    async withdraw () {
+      await this.$axios.$delete('/api/v1/withdraw')
+      await this.logout()
       this.dialog = false
     }
   }
