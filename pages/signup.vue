@@ -31,6 +31,7 @@ export default {
         this.setSnackbar(this.$t('snackbar.signup'))
         this.$router.push('/')
       } catch (error) {
+        this.$utils.formErrorWithValidation(error)
         this.isLoading = false
       }
     }

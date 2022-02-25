@@ -25,7 +25,7 @@ export default {
     },
     text: {
       type: String,
-      required: true
+      default: '本当に削除しますか？'
     }
   },
   computed: {

@@ -1,4 +1,4 @@
-export default ({ $axios, isDev, store }) => {
+export default ({ $axios, isDev }) => {
   $axios.onRequest((config) => {
     if (isDev) {
       console.log('onRequest', config)
@@ -12,10 +12,6 @@ export default ({ $axios, isDev, store }) => {
   })
 
   $axios.onError((error) => {
-    if (error.response.status === 400) {
-      store.dispatch('validation/setValidation', error.response.data)
-    }
-
     if (isDev) {
       console.log('onError', error)
     }
