@@ -14,6 +14,10 @@ class Utils {
     return this.app.$moment(date).format('YYYY-MM-DD')
   }
 
+  formatDateJp (date) {
+    return this.app.$moment(date).format('M月D日')
+  }
+
   formErrorWithValidation (error) {
     if (error.response.status === 400) {
       this.store.dispatch('validation/setValidation', error.response.data)
