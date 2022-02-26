@@ -3,7 +3,7 @@
     <v-dialog v-model="setDialog" max-width="500">
       <v-card class="pa-3">
         <v-card-title class="justify-center font-weight-bold mb-3">
-          {{ titleText }}
+          {{ $t(`model.${modelName}`) }}の更新
         </v-card-title>
 
         <ui-validation />
@@ -18,7 +18,7 @@
 <script>
 export default {
   props: {
-    titleText: {
+    modelName: {
       type: String,
       required: true
     },
