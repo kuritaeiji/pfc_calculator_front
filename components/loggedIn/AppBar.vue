@@ -19,11 +19,12 @@
         </template>
 
         <v-date-picker
-          v-model="today"
+          :value="date"
           locale="ja-jp"
           first-day-of-week="1"
           :day-format="date => new Date(date).getDate()"
           :max="today"
+          @change="selectDate"
         />
       </v-menu>
     </v-app-bar>
@@ -73,6 +74,14 @@ export default {
       ]
     }
   },
+  computed: {
+    date () {
+      if (this.$route.name === 'days-date') {
+        return this.$route.params.date
+      }
+      return this.today
+    }
+  },
   methods: {
     async logout () {
       await this.$auth.logout()
@@ -87,6 +96,9 @@ export default {
       await this.$axios.$delete('/api/v1/withdraw')
       await this.logout()
       this.dialog = false
+    },
+    selectDate (date) {
+      this.$router.push(`/days/${date}`)
     }
   }
 }
