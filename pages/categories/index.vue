@@ -20,8 +20,7 @@
         </template>
 
         <logged-in-form-create-dialog
-          btn-text="カテゴリーを作成する"
-          title-text="カテゴリーの作成"
+          model-name="category"
           :is-valid="create.isValid"
           :is-loading="create.isLoading"
           :dialog.sync="create.dialog"
@@ -35,7 +34,7 @@
         </logged-in-form-create-dialog>
 
         <logged-in-form-update-dialog
-          title-text="カテゴリーの更新"
+          model-name="category"
           :dialog.sync="update.dialog"
           :is-valid="update.isValid"
           :is-loading="update.isLoading"

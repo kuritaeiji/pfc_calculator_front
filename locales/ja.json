@@ -4,7 +4,8 @@
     "signup": "会員登録",
     "logout": "ログアウト",
     "withdraw": "退会",
-    "categories": "カテゴリー一覧"
+    "categories": "カテゴリー一覧",
+    "foods": "食材・料理一覧"
   },
   "snackbar": {
     "signup": "有効化メールを送信しました",
@@ -15,6 +16,22 @@
     "login": {
       "invalidEmailPassword": "メールアドレスまたはパスワードが間違っています",
       "notActivated": "有効化されていないユーザーです"
+    }
+  },
+  "model": {
+    "category": "カテゴリー",
+    "food": "食材・料理",
+    "attributes": {
+      "food": {
+        "title": "食材・料理名",
+        "per": "単位量当たり",
+        "unit": "単位",
+        "calory": "カロリー(kcal)",
+        "protein": "タンパク質(g)",
+        "fat": "脂質(g)",
+        "carbonhydrate": "炭水化物(g)",
+        "category_id": "カテゴリー"
+      }
     }
   }
 }
