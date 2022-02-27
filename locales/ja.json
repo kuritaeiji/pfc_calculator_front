@@ -31,7 +31,15 @@
         "fat": "脂質(g)",
         "carbonhydrate": "炭水化物(g)",
         "category_id": "カテゴリー"
+      },
+      "body": {
+        "weight": "体重",
+        "percentage": "体脂肪率"
       }
     }
+  },
+  "unit": {
+    "weight": "kg",
+    "percentage": "%"
   }
 }
