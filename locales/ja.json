@@ -21,6 +21,7 @@
   "model": {
     "category": "カテゴリー",
     "food": "食材・料理",
+    "meal": "食べた料理",
     "attributes": {
       "food": {
         "title": "食材・料理名",
@@ -35,11 +36,19 @@
       "body": {
         "weight": "体重",
         "percentage": "体脂肪率"
+      },
+      "ateFood": {
+        "amount": "量",
+        "foodId": "食材・料理"
       }
     }
   },
   "unit": {
     "weight": "kg",
-    "percentage": "%"
+    "percentage": "%",
+    "calory": "kcal",
+    "protein": "g",
+    "fat": "g",
+    "carbonhydrate": "g"
   }
 }

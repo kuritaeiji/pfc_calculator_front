@@ -1,77 +1,92 @@
 <template>
-  <v-container>
+  <v-container class="mb-5">
     <v-row justify="center">
       <v-card flat color="transparent" width="80%" max-width="800">
-        <ui-title :title="title" />
+        <ui-title :title="title" class="px-0" />
 
-        <div class="d-flex">
-          <!-- <v-card flat tile min-width="200" class="mr-5">
-            <ui-title :title="$t('model.attributes.body.weight')" />
+        <div class="d-sm-flex">
+          <body-card attr-name="weight" class="mb-3" />
+          <body-card attr-name="percentage" class="mb-3" />
+        </div>
 
-            <v-card-title v-show="!bodyUpdate.editingWeight" class="pt-0 greyText--text text-h4 font-weight-bold">
-              {{ body.weight }} {{ $t('unit.weight') }}
+        <ui-title title="食べた料理一覧" class="px-0 mb-2" />
 
-              <v-btn icon large class="ml-3" @click="bodyUpdate.editingWeight = true">
-                <v-icon size="30">
-                  mdi-pencil
-                </v-icon>
-              </v-btn>
-            </v-card-title>
+        <template v-for="ateFood in ateFoods">
+          <v-card
+            :key="`ate-food-card-${ateFood.id}`"
+            flat
+            tile
+          >
+            <v-row no-gutters class="pa-3">
+              <v-col>
+                <div class="greyText--text text-caption">
+                  {{ $t('model.attributes.food.title') }}
+                </div>
+                <div class="greyText--text font-weight-bold">
+                  {{ ateFood.food.title }}
+                </div>
+              </v-col>
 
-            <div v-show="bodyUpdate.editingWeight" class="px-4">
-              <ui-validation />
-            </div>
+              <v-col>
+                <div class="greyText--text text-caption">
+                  {{ $t('model.attributes.food.calory') }}
+                </div>
+                <div class="greyText--text font-weight-bold">
+                  {{ ateFood.calory }} {{ $t('unit.calory') }}
+                </div>
+              </v-col>
 
-            <v-card-title v-show="bodyUpdate.editingWeight" class="pt-0">
-              <v-form v-model="bodyUpdate.isValidWeight" class="d-flex" @submit.prevent>
-                <v-text-field
-                  v-model="bodyUpdate.params.body.weight"
-                  dense
-                  outlined
-                  autofocus
-                  @keyup.enter="_updateWeight"
-                  @keyup.esc="cancelUpdateWeight"
-                />
-                <span class="greyText--text text-h4 font-weight-bold ml-2">{{ $t('unit.weight') }}</span>
-              </v-form>
-            </v-card-title>
+              <v-col class="d-none d-sm-block">
+                <div class="greyText--text text-caption">
+                  {{ $t('model.attributes.food.protein') }}
+                </div>
+                <div class="greyText--text font-weight-bold">
+                  {{ ateFood.protein }} {{ $t('unit.protein') }}
+                </div>
+              </v-col>
+
+              <v-col class="d-none d-sm-block">
+                <div class="greyText--text text-caption">
+                  {{ $t('model.attributes.food.fat') }}
+                </div>
+                <div class="greyText--text font-weight-bold">
+                  {{ ateFood.fat }} {{ $t('unit.fat') }}
+                </div>
+              </v-col>
+
+              <v-col class="d-none d-sm-block">
+                <div class="greyText--text text-caption">
+                  {{ $t('model.attributes.food.carbonhydrate') }}
+                </div>
+                <div class="greyText--text font-weight-bold">
+                  {{ ateFood.carbonhydrate }} {{ $t('unit.carbonhydrate') }}
+                </div>
+              </v-col>
+
+              <v-col class="d-flex justify-end">
+                <logged-in-form-update-dialog-btn />
+                <logged-in-form-destroy-dialog-btn />
+              </v-col>
+            </v-row>
           </v-card>
 
-          <v-card flat tile min-width="200">
-            <ui-title :title="$t('model.attributes.body.percentage')" />
+          <v-divider :key="`ate-food-divider-${ateFood.id}`" />
+        </template>
 
-            <v-card-title v-show="!bodyUpdate.editingPercentage" class="pt-0 greyText--text text-h4 font-weight-bold">
-              {{ body.percentage }} {{ $t('unit.percentage') }}
-
-              <v-btn icon large class="ml-3">
-                <v-icon size="30" @click="bodyUpdate.editingPercentage = true">
-                  mdi-pencil
-                </v-icon>
-              </v-btn>
-            </v-card-title>
-
-            <div v-show="bodyUpdate.editingWeight" class="px-4">
-              <ui-validation />
-            </div>
-
-            <v-card-title v-show="bodyUpdate.editingPercentage" class="pt-0">
-              <v-form v-model="bodyUpdate.isValidPercentage" class="d-flex" @submit.prevent>
-                <v-text-field
-                  v-model="bodyUpdate.params.body.percentage"
-                  dense
-                  outlined
-                  autofocus
-                  @keyup.enter="_updatePercentage"
-                  @keyup.esc="cancelUpdatePercentage"
-                />
-                <span class="greyText--text text-h4 font-weight-bold ml-2">{{ $t('unit.percentage') }}</span>
-              </v-form>
-            </v-card-title>
-          </v-card> -->
-
-          <body-card attr-name="weight" />
-          <body-card attr-name="percentage" />
-        </div>
+        <logged-in-form-create-dialog
+          :btn-text="`${$t('model.food')}一覧から作成する`"
+          :title-text="`${$t('model.meal')}の作成`"
+          :dialog.sync="ateFood.create.dialog"
+          :is-valid="ateFood.create.isValid"
+          :is-loading="ateFood.create.isLoading"
+          @click-form-btn="_createAteFood"
+        >
+          <template #form>
+            <v-form ref="createAteFoodForm" v-model="ateFood.create.isValid">
+              <ate-food-form v-bind.sync="ateFood.create.params.ate_food" />
+            </v-form>
+          </template>
+        </logged-in-form-create-dialog>
       </v-card>
     </v-row>
   </v-container>
@@ -85,18 +100,20 @@ export default {
   data () {
     return {
       title: this.$utils.formatDateJp(new Date(this.$route.params.date)),
-      weightUpdate: {
-        isValid: false,
-        isEditing: false,
-        params: {
-          body: { ...this.$store.getters['body/body'] }
-        }
-      },
-      percentageUpdate: {
-        isValid: false,
-        isEditing: false,
-        params: {
-          body: { ...this.$store.getters['body/body'] }
+      ateFood: {
+        create: {
+          dialog: false,
+          isValid: false,
+          isLoading: false,
+          params: {
+            ate_food: {
+              amount: '',
+              food_id: '',
+              day: {
+                date: this.$route.params.date
+              }
+            }
+          }
         }
       }
     }
@@ -107,36 +124,32 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('body', ['body'])
+    ...mapGetters('ateFood', ['ateFoods']),
+    ...mapGetters('category', ['tab']),
+    ...mapGetters('food', ['foodsByCategory'])
   },
   methods: {
-    ...mapActions('body', ['updateWeight', 'updatePercentage']),
-    ...mapActions('validation', ['resetValidation']),
-    cancelUpdateWeight () {
-      this.bodyUpdate.editingWeight = false
-      this.bodyUpdate.params.body.weight = this.body.weight
-      this.resetValidation()
-    },
-    async _updateWeight () {
-      if (this.bodyUpdate.isValidWeight) {
+    ...mapActions('ateFood', ['createAteFood', 'updateAteFood', 'destroyAteFood']),
+    ...mapActions('validation', ['setValidation', 'resetValidation']),
+    async _createAteFood () {
+      if (!this.ateFood.create.params.ate_food.food_id) {
+        return this.setValidation(['食材・料理を選択して下さい'])
+      }
+
+      if (this.ateFood.create.isValid) {
         try {
-          await this.updateWeight(this.bodyUpdate.params)
-          this.bodyUpdate.editingWeight = false
-          this.resetValidation()
+          await this.createAteFood(this.ateFood.create.params)
+          this.createAteFoodResolve()
         } catch (error) {
           this.$utils.formErrorWithValidation(error)
         }
       }
     },
-    cancelUpdatePercentage () {
-      this.bodyUpdate.editingPercentage = false
-      this.bodyUpdate.params.body.percentage = this.body.percentage
+    createAteFoodResolve () {
+      this.ateFood.create.dialog = false
+      this.ateFood.create.params.ate_food = { amount: '', food_id: '', day: { date: this.$route.params.date } }
+      this.$refs.createAteFoodForm.resetValidation()
       this.resetValidation()
-    },
-    async _updatePercentage () {
-      if (this.bodyUpdate.isValidPercentage) {
-        await this.updatePercentage(this.bodyUpdate.params)
-      }
     }
   }
 }
