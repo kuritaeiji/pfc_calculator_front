@@ -16,12 +16,16 @@
     "login": {
       "invalidEmailPassword": "メールアドレスまたはパスワードが間違っています",
       "notActivated": "有効化されていないユーザーです"
+    },
+    "ateFood": {
+      "foodId": "食材・料理を選択して下さい"
     }
   },
   "model": {
     "category": "カテゴリー",
     "food": "食材・料理",
     "meal": "食べた料理",
+    "ateFood": "料理",
     "attributes": {
       "food": {
         "title": "食材・料理名",

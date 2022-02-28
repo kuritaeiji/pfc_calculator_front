@@ -17,7 +17,7 @@ export default {
       }
 
       const num = Number(newVal)
-      if (typeof num === 'number') {
+      if (!Number.isNaN(num)) {
         this.$refs[attrName].lazyValue = num
         this.$emit(`update:${attrName}`, num)
         return null

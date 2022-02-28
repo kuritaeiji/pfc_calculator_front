@@ -4,7 +4,8 @@
       ref="amount"
       v-model="setAmount"
       outlined
-      :label="$t('model.attributes.ateFood.amount')"
+      :label="label"
+      :rules="rules"
     />
 
     <v-card-text class="pa-0">
@@ -38,6 +39,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import numberInput from '~/mixins/numberInput'
+import { decimal, presence } from '~/validators'
 
 export default {
   mixins: [numberInput],
@@ -52,9 +54,14 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      rules: [presence, decimal]
+    }
+  },
   computed: {
     ...mapGetters('category', ['tab']),
-    ...mapGetters('food', ['foodsByCategory']),
+    ...mapGetters('food', ['foodsByCategory', 'foodById']),
     setAmount: {
       get () {
         return this.amount
@@ -62,6 +69,14 @@ export default {
       set (newVal) {
         this.setOnlyNumber('amount', newVal)
       }
+    },
+    label () {
+      if (!this.food_id) {
+        return this.$t('model.attributes.ateFood.amount')
+      }
+
+      const unit = this.foodById(this.food_id).unit
+      return `${this.$t('model.attributes.ateFood.amount')}(${unit})`
     }
   },
   methods: {

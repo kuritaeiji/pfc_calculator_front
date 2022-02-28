@@ -64,14 +64,29 @@
               </v-col>
 
               <v-col class="d-flex justify-end">
-                <logged-in-form-update-dialog-btn />
-                <logged-in-form-destroy-dialog-btn @open="openDestroyDialog(ateFood)" />
+                <logged-in-form-update-dialog-btn @open="openUpdateAteFoodDialog(ateFood)" />
+                <logged-in-form-destroy-dialog-btn @open="openDestroyAteFoodDialog(ateFood)" />
               </v-col>
             </v-row>
           </v-card>
 
           <v-divider :key="`ate-food-divider-${ateFood.id}`" />
         </template>
+
+        <logged-in-form-update-dialog
+          model-name="ateFood"
+          :dialog.sync="ateFood.update.dialog"
+          :is-valid="ateFood.update.isValid"
+          :is-loading="ateFood.update.isLoading"
+          @click-form-btn="_updateAteFood"
+        >
+          <template #form>
+            <v-form ref="updateAteFood" v-model="ateFood.update.isValid">
+              <ate-food-form v-bind.sync="ateFood.update.params.ate_food" />
+            </v-form>
+          </template>
+        </logged-in-form-update-dialog>
+
         <ui-confirm-dialog :dialog.sync="ateFood.destroy.dialog" @yes="_destroyAteFood" />
 
         <logged-in-form-create-dialog
@@ -116,6 +131,14 @@ export default {
             }
           }
         },
+        update: {
+          dialog: false,
+          isValid: false,
+          isLoading: false,
+          params: {
+            ate_food: {}
+          }
+        },
         destroy: {
           dialog: false,
           ate_food: {}
@@ -138,15 +161,18 @@ export default {
     ...mapActions('validation', ['setValidation', 'resetValidation']),
     async _createAteFood () {
       if (!this.ateFood.create.params.ate_food.food_id) {
-        return this.setValidation(['食材・料理を選択して下さい'])
+        return this.setValidation([this.$t('validation.ateFood.foodId')])
       }
 
       if (this.ateFood.create.isValid) {
+        this.ateFood.create.isLoading = true
         try {
           await this.createAteFood(this.ateFood.create.params)
           this.createAteFoodResolve()
         } catch (error) {
           this.$utils.formErrorWithValidation(error)
+        } finally {
+          this.ateFood.create.isLoading = false
         }
       }
     },
@@ -156,7 +182,33 @@ export default {
       this.$refs.createAteFoodForm.resetValidation()
       this.resetValidation()
     },
-    openDestroyDialog (ateFood) {
+    openUpdateAteFoodDialog (ateFood) {
+      this.ateFood.update.dialog = true
+      this.ateFood.update.params.ate_food = { ...ateFood, food_id: ateFood.food.id }
+    },
+    async _updateAteFood () {
+      if (!this.ateFood.update.params.ate_food.food_id) {
+        return this.setValidation([this.$t('validation.ateFood.foodId')])
+      }
+
+      if (this.ateFood.update.isValid) {
+        this.ateFood.update.isLoading = true
+        try {
+          await this.updateAteFood(this.ateFood.update.params)
+          this.updateAteFoodResolve()
+        } catch (error) {
+          this.$utils.formErrorWithValidation(error)
+        } finally {
+          this.ateFood.update.isLoading = false
+        }
+      }
+    },
+    updateAteFoodResolve () {
+      this.$refs.updateAteFood.resetValidation()
+      this.resetValidation()
+      this.ateFood.update.dialog = false
+    },
+    openDestroyAteFoodDialog (ateFood) {
       this.ateFood.destroy.dialog = true
       this.ateFood.destroy.ate_food = ateFood
     },

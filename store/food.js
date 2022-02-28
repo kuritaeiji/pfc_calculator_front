@@ -10,6 +10,9 @@ export const getters = {
   },
   foodsByCategory (state) {
     return categoryId => state.foods.filter(f => f.category.id === categoryId)
+  },
+  foodById (state) {
+    return id => state.foods.find(food => food.id === id)
   }
 }
 
