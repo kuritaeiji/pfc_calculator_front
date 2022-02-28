@@ -65,13 +65,14 @@
 
               <v-col class="d-flex justify-end">
                 <logged-in-form-update-dialog-btn />
-                <logged-in-form-destroy-dialog-btn />
+                <logged-in-form-destroy-dialog-btn @open="openDestroyDialog(ateFood)" />
               </v-col>
             </v-row>
           </v-card>
 
           <v-divider :key="`ate-food-divider-${ateFood.id}`" />
         </template>
+        <ui-confirm-dialog :dialog.sync="ateFood.destroy.dialog" @yes="_destroyAteFood" />
 
         <logged-in-form-create-dialog
           :btn-text="`${$t('model.food')}一覧から作成する`"
@@ -114,6 +115,10 @@ export default {
               }
             }
           }
+        },
+        destroy: {
+          dialog: false,
+          ate_food: {}
         }
       }
     }
@@ -150,6 +155,14 @@ export default {
       this.ateFood.create.params.ate_food = { amount: '', food_id: '', day: { date: this.$route.params.date } }
       this.$refs.createAteFoodForm.resetValidation()
       this.resetValidation()
+    },
+    openDestroyDialog (ateFood) {
+      this.ateFood.destroy.dialog = true
+      this.ateFood.destroy.ate_food = ateFood
+    },
+    async _destroyAteFood () {
+      await this.destroyAteFood(this.ateFood.destroy.ate_food)
+      this.ateFood.destroy.dialog = false
     }
   }
 }
