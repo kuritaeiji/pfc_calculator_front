@@ -28,3 +28,7 @@ export const decimal = (v) => {
   }
   return nums[0].length <= precision || `${precision}桁以内で入力して下さい`
 }
+
+export const smaller = (upper) => {
+  return v => v <= upper || `${upper}より小さい数値を入力して下さい`
+}
