@@ -26,6 +26,7 @@
     "food": "食材・料理",
     "meal": "食べた料理",
     "ateFood": "料理",
+    "dish": "料理",
     "attributes": {
       "food": {
         "title": "食材・料理名",
@@ -44,6 +45,13 @@
       "ateFood": {
         "amount": "量",
         "foodId": "食材・料理"
+      },
+      "dish": {
+        "title": "料理名",
+        "calory": "カロリー",
+        "protein": "タンパク質",
+        "fat": "脂質",
+        "carbonhydrate": "炭水化物"
       }
     }
   },

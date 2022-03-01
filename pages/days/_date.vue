@@ -11,67 +11,62 @@
 
         <ui-title title="食べた料理一覧" class="px-0 mb-2" />
 
-        <template v-for="ateFood in ateFoods">
-          <v-card
-            :key="`ate-food-card-${ateFood.id}`"
-            flat
-            tile
+        <meal-card
+          v-for="f in ateFoods"
+          :key="`ate-food-card-${f.id}`"
+          :title="f.food.title"
+          :calory="f.calory"
+          :protein="f.protein"
+          :fat="f.fat"
+          :carbonhydrate="f.carbonhydrate"
+          @open-update-dialog="openUpdateAteFoodDialog(f)"
+          @open-destroy-dialog="openDestroyAteFoodDialog(f)"
+        />
+
+        <meal-card
+          v-for="d in dishes"
+          :key="`d-card-${d.id}`"
+          :title="d.title"
+          :calory="d.calory"
+          :protein="d.protein"
+          :fat="d.fat"
+          :carbonhydrate="d.carbonhydrate"
+          @open-update-dialog="openUpdateDishDialog(d)"
+          @open-destroy-dialog="openDestroyDishDialog(d)"
+        />
+
+        <div class="d-sm-flex">
+          <logged-in-form-create-dialog
+            :btn-text="`${$t('model.food')}一覧から作成する`"
+            :title-text="`${$t('model.meal')}の作成`"
+            :dialog.sync="ateFood.create.dialog"
+            :is-valid="ateFood.create.isValid"
+            :is-loading="ateFood.create.isLoading"
+            class="mr-5"
+            @click-form-btn="_createAteFood"
           >
-            <v-row no-gutters class="pa-3">
-              <v-col>
-                <div class="greyText--text text-caption">
-                  {{ $t('model.attributes.food.title') }}
-                </div>
-                <div class="greyText--text font-weight-bold">
-                  {{ ateFood.food.title }}
-                </div>
-              </v-col>
+            <template #form>
+              <v-form ref="createAteFoodForm" v-model="ateFood.create.isValid">
+                <ate-food-form v-bind.sync="ateFood.create.params.ate_food" />
+              </v-form>
+            </template>
+          </logged-in-form-create-dialog>
 
-              <v-col>
-                <div class="greyText--text text-caption">
-                  {{ $t('model.attributes.food.calory') }}
-                </div>
-                <div class="greyText--text font-weight-bold">
-                  {{ ateFood.calory }} {{ $t('unit.calory') }}
-                </div>
-              </v-col>
-
-              <v-col class="d-none d-sm-block">
-                <div class="greyText--text text-caption">
-                  {{ $t('model.attributes.food.protein') }}
-                </div>
-                <div class="greyText--text font-weight-bold">
-                  {{ ateFood.protein }} {{ $t('unit.protein') }}
-                </div>
-              </v-col>
-
-              <v-col class="d-none d-sm-block">
-                <div class="greyText--text text-caption">
-                  {{ $t('model.attributes.food.fat') }}
-                </div>
-                <div class="greyText--text font-weight-bold">
-                  {{ ateFood.fat }} {{ $t('unit.fat') }}
-                </div>
-              </v-col>
-
-              <v-col class="d-none d-sm-block">
-                <div class="greyText--text text-caption">
-                  {{ $t('model.attributes.food.carbonhydrate') }}
-                </div>
-                <div class="greyText--text font-weight-bold">
-                  {{ ateFood.carbonhydrate }} {{ $t('unit.carbonhydrate') }}
-                </div>
-              </v-col>
-
-              <v-col class="d-flex justify-end">
-                <logged-in-form-update-dialog-btn @open="openUpdateAteFoodDialog(ateFood)" />
-                <logged-in-form-destroy-dialog-btn @open="openDestroyAteFoodDialog(ateFood)" />
-              </v-col>
-            </v-row>
-          </v-card>
-
-          <v-divider :key="`ate-food-divider-${ateFood.id}`" />
-        </template>
+          <logged-in-form-create-dialog
+            :btn-text="`${$t('model.dish')}を作成する`"
+            :title-text="`${$t('model.dish')}の作成`"
+            :dialog.sync="dish.create.dialog"
+            :is-valid="dish.create.isValid"
+            :is-loading="dish.create.isLoading"
+            @click-form-btn="_createDish"
+          >
+            <template #form>
+              <v-form ref="createDishForm" v-model="dish.create.isValid">
+                <dish-form v-bind.sync="dish.create.params.dish" />
+              </v-form>
+            </template>
+          </logged-in-form-create-dialog>
+        </div>
 
         <logged-in-form-update-dialog
           model-name="ateFood"
@@ -87,22 +82,22 @@
           </template>
         </logged-in-form-update-dialog>
 
-        <ui-confirm-dialog :dialog.sync="ateFood.destroy.dialog" @yes="_destroyAteFood" />
-
-        <logged-in-form-create-dialog
-          :btn-text="`${$t('model.food')}一覧から作成する`"
-          :title-text="`${$t('model.meal')}の作成`"
-          :dialog.sync="ateFood.create.dialog"
-          :is-valid="ateFood.create.isValid"
-          :is-loading="ateFood.create.isLoading"
-          @click-form-btn="_createAteFood"
+        <logged-in-form-update-dialog
+          model-name="dish"
+          :dialog.sync="dish.update.dialog"
+          :is-valid="dish.update.isValid"
+          :is-loading="dish.update.isLoading"
+          @click-form-btn="_updateDish"
         >
           <template #form>
-            <v-form ref="createAteFoodForm" v-model="ateFood.create.isValid">
-              <ate-food-form v-bind.sync="ateFood.create.params.ate_food" />
+            <v-form ref="updateDishForm" v-model="dish.update.isValid">
+              <dish-form v-bind.sync="dish.update.params.dish" />
             </v-form>
           </template>
-        </logged-in-form-create-dialog>
+        </logged-in-form-update-dialog>
+
+        <ui-confirm-dialog :dialog.sync="ateFood.destroy.dialog" @yes="_destroyAteFood" />
+        <ui-confirm-dialog :dialog.sync="dish.destroy.dialog" @yes="_destroyDish" />
       </v-card>
     </v-row>
   </v-container>
@@ -114,6 +109,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   middleware: ['auth', 'prepareDaysPage'],
   data () {
+    const date = this.$route.params.date
     return {
       title: this.$utils.formatDateJp(new Date(this.$route.params.date)),
       ateFood: {
@@ -126,7 +122,7 @@ export default {
               amount: '',
               food_id: '',
               day: {
-                date: this.$route.params.date
+                date
               }
             }
           }
@@ -143,6 +139,37 @@ export default {
           dialog: false,
           ate_food: {}
         }
+      },
+      dish: {
+        create: {
+          dialog: false,
+          isValid: false,
+          isLoading: false,
+          params: {
+            dish: {
+              title: '',
+              calory: '',
+              protein: '',
+              fat: '',
+              carbonhydrate: '',
+              day: {
+                date
+              }
+            }
+          }
+        },
+        update: {
+          dialog: false,
+          isValid: false,
+          isLoading: false,
+          params: {
+            dish: {}
+          }
+        },
+        destroy: {
+          dialog: false,
+          dish: {}
+        }
       }
     }
   },
@@ -154,10 +181,12 @@ export default {
   computed: {
     ...mapGetters('ateFood', ['ateFoods']),
     ...mapGetters('category', ['tab']),
-    ...mapGetters('food', ['foodsByCategory'])
+    ...mapGetters('food', ['foodsByCategory']),
+    ...mapGetters('dish', ['dishes'])
   },
   methods: {
     ...mapActions('ateFood', ['createAteFood', 'updateAteFood', 'destroyAteFood']),
+    ...mapActions('dish', ['createDish', 'updateDish', 'destroyDish']),
     ...mapActions('validation', ['setValidation', 'resetValidation']),
     async _createAteFood () {
       if (!this.ateFood.create.params.ate_food.food_id) {
@@ -215,6 +244,55 @@ export default {
     async _destroyAteFood () {
       await this.destroyAteFood(this.ateFood.destroy.ate_food)
       this.ateFood.destroy.dialog = false
+    },
+    async _createDish () {
+      if (this.dish.create.isValid) {
+        this.dish.create.isLoading = true
+        try {
+          await this.createDish(this.dish.create.params)
+          this.createDishResolve()
+        } catch (error) {
+          this.$utils.formErrorWithValidation(error)
+        } finally {
+          this.dish.create.isLoading = false
+        }
+      }
+    },
+    createDishResolve () {
+      this.dish.create.dialog = false
+      this.dish.create.params.dish = { title: '', calory: '', protein: '', fat: '', carbonhydrate: '', day: { date: this.$route.params.date } }
+      this.resetValidation()
+      this.$refs.createDishForm.resetValidation()
+    },
+    openUpdateDishDialog (dish) {
+      this.dish.update.dialog = true
+      this.dish.update.params.dish = { ...dish }
+    },
+    async _updateDish () {
+      if (this.dish.update.isValid) {
+        try {
+          await this.updateDish(this.dish.update.params)
+          this.updateDishResolve()
+        } catch (error) {
+          this.$utils.formErrorWithValidation(error)
+        } finally {
+          this.dish.update.isLoading = false
+        }
+      }
+    },
+    updateDishResolve () {
+      this.dish.update.params.dish = {}
+      this.resetValidation()
+      this.$refs.updateDishForm.resetValidation()
+      this.dish.update.dialog = false
+    },
+    openDestroyDishDialog (dish) {
+      this.dish.destroy.dialog = true
+      this.dish.destroy.dish = dish
+    },
+    async _destroyDish () {
+      await this.destroyDish(this.dish.destroy.dish)
+      this.dish.destroy.dialog = false
     }
   }
 }

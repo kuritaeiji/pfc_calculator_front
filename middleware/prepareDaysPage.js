@@ -4,4 +4,5 @@ export default async ({ $axios, params, store }) => {
   await store.dispatch('ateFood/getAteFoods', params.date)
   await store.dispatch('category/getCategories')
   await store.dispatch('food/getFoods')
+  await store.dispatch('dish/getDishes', params.date)
 }
