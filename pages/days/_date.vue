@@ -114,6 +114,7 @@ export default {
     const date = this.$route.params.date
     return {
       title: this.$utils.formatDateJp(new Date(this.$route.params.date)),
+      date,
       ateFood: {
         create: {
           dialog: false,
@@ -184,13 +185,13 @@ export default {
     ...mapGetters('ateFood', ['ateFoods']),
     ...mapGetters('category', ['tab']),
     ...mapGetters('food', ['foodsByCategory']),
-    ...mapGetters('dish', ['dishes']),
-    ...mapGetters('day', ['day'])
+    ...mapGetters('dish', ['dishes'])
   },
   methods: {
     ...mapActions('ateFood', ['createAteFood', 'updateAteFood', 'destroyAteFood']),
     ...mapActions('dish', ['createDish', 'updateDish', 'destroyDish']),
     ...mapActions('validation', ['setValidation', 'resetValidation']),
+    ...mapActions('day', ['getDay']),
     async _createAteFood () {
       if (!this.ateFood.create.params.ate_food.food_id) {
         return this.setValidation([this.$t('validation.ateFood.foodId')])
@@ -209,8 +210,9 @@ export default {
       }
     },
     createAteFoodResolve () {
+      this.getDay(this.date)
       this.ateFood.create.dialog = false
-      this.ateFood.create.params.ate_food = { amount: '', food_id: '', day: { date: this.$route.params.date } }
+      this.ateFood.create.params.ate_food = { amount: '', food_id: '', day: { date: this.date } }
       this.$refs.createAteFoodForm.resetValidation()
       this.resetValidation()
     },
@@ -236,6 +238,7 @@ export default {
       }
     },
     updateAteFoodResolve () {
+      this.getDay(this.date)
       this.$refs.updateAteFood.resetValidation()
       this.resetValidation()
       this.ateFood.update.dialog = false
@@ -246,6 +249,7 @@ export default {
     },
     async _destroyAteFood () {
       await this.destroyAteFood(this.ateFood.destroy.ate_food)
+      this.getDay(this.date)
       this.ateFood.destroy.dialog = false
     },
     async _createDish () {
@@ -262,8 +266,9 @@ export default {
       }
     },
     createDishResolve () {
+      this.getDay(this.date)
       this.dish.create.dialog = false
-      this.dish.create.params.dish = { title: '', calory: '', protein: '', fat: '', carbonhydrate: '', day: { date: this.$route.params.date } }
+      this.dish.create.params.dish = { title: '', calory: '', protein: '', fat: '', carbonhydrate: '', day: { date: this.date } }
       this.resetValidation()
       this.$refs.createDishForm.resetValidation()
     },
@@ -284,6 +289,7 @@ export default {
       }
     },
     updateDishResolve () {
+      this.getDay(this.date)
       this.dish.update.params.dish = {}
       this.resetValidation()
       this.$refs.updateDishForm.resetValidation()
@@ -295,6 +301,7 @@ export default {
     },
     async _destroyDish () {
       await this.destroyDish(this.dish.destroy.dish)
+      this.getDay(this.date)
       this.dish.destroy.dialog = false
     }
   }

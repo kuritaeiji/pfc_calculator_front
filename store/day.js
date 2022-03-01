@@ -23,6 +23,10 @@ const formattedDay = day => ({
 })
 
 export const actions = {
+  async getDay ({ commit }, date) {
+    const response = await this.$axios.$get(`/api/v1/days/${date}`)
+    commit('setDay', formattedDay(response.day))
+  },
   async createDay ({ commit }, params) {
     const response = await this.$axios.$post('/api/v1/days', params)
     commit('setDay', formattedDay(response.day))
