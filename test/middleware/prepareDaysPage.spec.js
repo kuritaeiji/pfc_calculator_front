@@ -29,4 +29,9 @@ describe('middleware/prepareDaysPage', () => {
     await prepareDaysPage({ $axios: mockAxios, params, store: mockStore })
     expect(mockStore.dispatch).toHaveBeenCalledWith('food/getFoods')
   })
+
+  it('storeはgetDishesをdispatchする', async () => {
+    await prepareDaysPage({ $axios: mockAxios, params, store: mockStore })
+    expect(mockStore.dispatch).toHaveBeenCalledWith('dish/getDishes', params.date)
+  })
 })
