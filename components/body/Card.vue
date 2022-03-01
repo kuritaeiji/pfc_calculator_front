@@ -1,5 +1,5 @@
 <template>
-  <v-card flat tile min-width="200" class="mr-5">
+  <v-card flat tile min-width="200" class="mr-sm-5">
     <ui-title :title="$t(`model.attributes.body.${attrName}`)" />
 
     <v-card-title v-show="!isEditing" class="pt-0 greyText--text text-h4 font-weight-bold">

@@ -9,6 +9,38 @@
           <body-card attr-name="percentage" class="mb-3" />
         </div>
 
+        <v-card flat tile max-width="570" class="d-flex">
+          <v-row no-gutters>
+            <v-col cols="6" sm="3">
+              <ui-title :title="$t('model.attributes.day.calory')" />
+              <v-card-title class="pt-0 greyText--text text-h6 font-weight-bold">
+                {{ day.calory }}{{ $t('unit.calory') }}
+              </v-card-title>
+            </v-col>
+
+            <v-col cols="6" sm="3">
+              <ui-title :title="$t('model.attributes.day.protein')" />
+              <v-card-title class="pt-0 greyText--text text-h6 font-weight-bold">
+                {{ day.protein }}{{ $t('unit.protein') }}
+              </v-card-title>
+            </v-col>
+
+            <v-col cols="6" sm="3">
+              <ui-title :title="$t('model.attributes.day.fat')" />
+              <v-card-title class="pt-0 greyText--text text-h6 font-weight-bold">
+                {{ day.fat }}{{ $t('unit.fat') }}
+              </v-card-title>
+            </v-col>
+
+            <v-col cols="6" sm="3">
+              <ui-title :title="$t('model.attributes.day.carbonhydrate')" />
+              <v-card-title class="pt-0 greyText--text text-h6 font-weight-bold">
+                {{ day.carbonhydrate }}{{ $t('unit.carbonhydrate') }}
+              </v-card-title>
+            </v-col>
+          </v-row>
+        </v-card>
+
         <ui-title title="食べた料理一覧" class="px-0 mb-2" />
 
         <meal-card
@@ -182,7 +214,8 @@ export default {
     ...mapGetters('ateFood', ['ateFoods']),
     ...mapGetters('category', ['tab']),
     ...mapGetters('food', ['foodsByCategory']),
-    ...mapGetters('dish', ['dishes'])
+    ...mapGetters('dish', ['dishes']),
+    ...mapGetters('day', ['day'])
   },
   methods: {
     ...mapActions('ateFood', ['createAteFood', 'updateAteFood', 'destroyAteFood']),
