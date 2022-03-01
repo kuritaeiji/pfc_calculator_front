@@ -4,18 +4,10 @@
       <v-card flat color="transparent" width="80%" max-width="500" class="mt-5">
         <ui-title :title="title" />
 
-        <v-tabs v-model="tab" background-color="transparent" class="mb-3">
-          <v-tab
-            v-for="category in categories"
-            :key="`category-tab-${category.id}`"
-            :href="`#${category.id}`"
-          >
-            {{ category.title }}
-          </v-tab>
-        </v-tabs>
+        <category-tabs class="mb-3" />
 
         <v-card
-          v-for="food in foodsByCategory(tabId)"
+          v-for="food in foodsByCategory(tab)"
           :key="`food-card-${food.id}`"
           flat
           tile
@@ -33,7 +25,8 @@
 
         <logged-in-form-create-dialog
           :dialog.sync="create.dialog"
-          model-name="food"
+          :btn-text="`${$t('model.food')}を作成する`"
+          :title-text="`${$t('model.food')}の作成`"
           :is-valid="create.isValid"
           :is-loading="create.isLoading"
           @click-form-btn="_createFood"
@@ -84,7 +77,6 @@ export default {
   middleware: ['auth', 'getCategories', 'getFoods'],
   data () {
     return {
-      tab: null,
       create: {
         dialog: false,
         isValid: false,
@@ -108,11 +100,8 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('category', ['categories']),
-    ...mapGetters('food', ['foodsByCategory']),
-    tabId () {
-      return Number(this.tab)
-    }
+    ...mapGetters('category', ['categories', 'tab']),
+    ...mapGetters('food', ['foodsByCategory'])
   },
   methods: {
     ...mapActions('food', ['createFood', 'updateFood', 'destroyFood']),

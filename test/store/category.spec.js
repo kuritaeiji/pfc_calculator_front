@@ -10,11 +10,17 @@ describe('getters', () => {
     const result = getters.categories({ categories: defaultCategories })
     expect(result).toEqual(defaultCategories)
   })
+
+  it('tab', () => {
+    const result = getters.tab({ tab: 1 })
+    expect(result).toEqual(1)
+  })
 })
 
 describe('mutations', () => {
   const _state = () => ({
-    categories: [...defaultCategories]
+    categories: [...defaultCategories],
+    tab: 1
   })
 
   let state
@@ -44,6 +50,12 @@ describe('mutations', () => {
     const id = defaultCategories[0].id
     mutations.destroyCategory(state, id)
     expect(state.categories).toEqual([defaultCategories[1]])
+  })
+
+  it('setTab', () => {
+    const id = 10
+    mutations.setTab(state, id)
+    expect(state.tab).toEqual(id)
   })
 })
 
@@ -128,5 +140,11 @@ describe('actions', () => {
       actions.destroyCategory({ commit }, destroyedCategory)
       expect(commit).toHaveBeenCalledWith('destroyCategory', destroyedCategory.id)
     })
+  })
+
+  it('setTab', () => {
+    const id = 10
+    actions.setTab({ commit }, id)
+    expect(commit).toHaveBeenCalledWith('setTab', id)
   })
 })

@@ -7,13 +7,13 @@
       class="mt-5 white--text font-weight-bold"
       @click="click"
     >
-      {{ $t(`model.${modelName}`) }}を作成する
+      {{ btnText }}
     </v-btn>
 
     <v-dialog v-model="setDialog" max-width="500">
       <v-card class="pa-3">
         <v-card-title class="justify-center font-weight-bold mb-3">
-          {{ $t(`model.${modelName}`) }}の作成
+          {{ titleText }}
         </v-card-title>
 
         <ui-validation />
@@ -28,7 +28,11 @@
 <script>
 export default {
   props: {
-    modelName: {
+    btnText: {
+      type: String,
+      required: true
+    },
+    titleText: {
       type: String,
       required: true
     },

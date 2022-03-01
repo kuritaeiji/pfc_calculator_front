@@ -20,7 +20,8 @@
         </template>
 
         <logged-in-form-create-dialog
-          model-name="category"
+          :btn-text="`${$t('model.category')}を作成する`"
+          :title-text="`${$t('model.category')}の作成`"
           :is-valid="create.isValid"
           :is-loading="create.isLoading"
           :dialog.sync="create.dialog"

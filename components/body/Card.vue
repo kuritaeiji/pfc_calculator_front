@@ -69,14 +69,14 @@ export default {
         return this.params.body[this.attrName]
       },
       set (newVal) {
-        const number = Number(newVal)
         if (this.lastCharIsCommaAndLastSecondCharIsNumber(newVal)) {
           this.$refs.input.lazyValue = newVal
           this.params.body[this.attrName] = newVal
           return null
         }
 
-        if (typeof number === 'number') {
+        const number = Number(newVal)
+        if (!Number.isNaN(number)) {
           this.$refs.input.lazyValue = number
           this.params.body[this.attrName] = number
           return null

@@ -66,7 +66,8 @@ export default {
       dialog: false,
       dialogText: '本当に退会しますか？',
       menus: [
-        { name: 'categories' }
+        { name: 'categories' },
+        { name: 'foods' }
       ],
       userMenus: [
         { name: 'logout', method: this.logout },

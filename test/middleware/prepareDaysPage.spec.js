@@ -14,4 +14,19 @@ describe('middleware/prepareDaysPage', () => {
     await prepareDaysPage({ $axios: mockAxios, params, store: mockStore })
     expect(mockStore.dispatch).toHaveBeenCalledWith('body/createBody', params.date)
   })
+
+  it('storeはgetAteFoodsをdispatchする', async () => {
+    await prepareDaysPage({ $axios: mockAxios, params, store: mockStore })
+    expect(mockStore.dispatch).toHaveBeenCalledWith('ateFood/getAteFoods', params.date)
+  })
+
+  it('storeはgetCategoriesをdispatchする', async () => {
+    await prepareDaysPage({ $axios: mockAxios, params, store: mockStore })
+    expect(mockStore.dispatch).toHaveBeenCalledWith('category/getCategories')
+  })
+
+  it('storeはgetFoodsをdispatchする', async () => {
+    await prepareDaysPage({ $axios: mockAxios, params, store: mockStore })
+    expect(mockStore.dispatch).toHaveBeenCalledWith('food/getFoods')
+  })
 })
