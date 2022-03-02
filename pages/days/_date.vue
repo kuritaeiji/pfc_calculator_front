@@ -11,6 +11,11 @@
 
         <day-card />
 
+        <ui-title :title="$t('chart.pie.pfc')" class="px-0" />
+        <v-card flat max-width="400" tile class="d-flex justify-center pa-3">
+          <chart-pfc-pie />
+        </v-card>
+
         <ui-title title="食べた料理一覧" class="px-0 mb-2" />
 
         <meal-card

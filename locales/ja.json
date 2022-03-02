@@ -68,5 +68,10 @@
     "protein": "g",
     "fat": "g",
     "carbonhydrate": "g"
+  },
+  "chart": {
+    "pie": {
+      "pfc": "PFC比率"
+    }
   }
 }
