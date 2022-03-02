@@ -13,18 +13,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('chart', ['dateWeightData']),
+    ...mapGetters('chart', ['datePercentageData']),
     chartData () {
       return {
         labels: this.labels,
         datasets: [
           {
-            label: this.$t('model.attributes.body.weight'),
-            data: this.dateWeightData,
-            fill: false,
+            label: this.$t('model.attributes.body.percentage'),
+            data: this.datePercentageData,
             lineTension: 0,
-            backgroundColor: 'Red',
-            borderColor: 'Red'
+            fill: false,
+            borderColor: 'Blue',
+            backgroundColor: 'Blue'
           }
         ]
       }
@@ -44,7 +44,7 @@ export default {
             label (tooltipItem) {
               const index = tooltipItem.index
               const data = self.chartData.datasets[0].data[index]
-              return ` ${data}${self.$t('unit.weight')}`
+              return ` ${data}${self.$t('unit.percentage')}`
             }
           }
         }
@@ -53,7 +53,7 @@ export default {
   },
   async beforeCreate () {
     const today = this.$utils.formatDate(new Date())
-    await this.$store.dispatch('chart/getDateWeightData', today)
+    await this.$store.dispatch('chart/getDatePercentageData', today)
   }
 }
 </script>
