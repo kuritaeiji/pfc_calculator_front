@@ -5,7 +5,10 @@
     "logout": "ログアウト",
     "withdraw": "退会",
     "categories": "カテゴリー一覧",
-    "foods": "食材・料理一覧"
+    "foods": "食材・料理一覧",
+    "charts": {
+      "body": "体重・体脂肪率グラフ"
+    }
   },
   "snackbar": {
     "signup": "有効化メールを送信しました",

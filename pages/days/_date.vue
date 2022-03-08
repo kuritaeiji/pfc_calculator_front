@@ -21,11 +21,7 @@
         <meal-card
           v-for="f in ateFoods"
           :key="`ate-food-card-${f.id}`"
-          :title="f.food.title"
-          :calory="f.calory"
-          :protein="f.protein"
-          :fat="f.fat"
-          :carbonhydrate="f.carbonhydrate"
+          v-bind="f"
           @open-update-dialog="openUpdateAteFoodDialog(f)"
           @open-destroy-dialog="openDestroyAteFoodDialog(f)"
         />
@@ -33,10 +29,7 @@
         <meal-card
           v-for="d in dishes"
           :key="`d-card-${d.id}`"
-          :title="d.title"
-          :calory="d.calory"
-          :protein="d.protein"
-          :fat="d.fat"
+          v-bind="d"
           :carbonhydrate="d.carbonhydrate"
           @open-update-dialog="openUpdateDishDialog(d)"
           @open-destroy-dialog="openDestroyDishDialog(d)"
