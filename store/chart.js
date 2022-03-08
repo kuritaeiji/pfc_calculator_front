@@ -1,6 +1,8 @@
 export const state = () => ({
   dateWeightData: [],
-  datePercentageData: []
+  datePercentageData: [],
+  monthWeightData: [],
+  monthPercentageData: []
 })
 
 export const getters = {
@@ -9,6 +11,12 @@ export const getters = {
   },
   datePercentageData (state) {
     return state.datePercentageData
+  },
+  monthWeightData (state) {
+    return state.monthWeightData
+  },
+  monthPercentageData (state) {
+    return state.monthPercentageData
   }
 }
 
@@ -18,6 +26,12 @@ export const mutations = {
   },
   setDatePercentageData (state, data) {
     state.datePercentageData = data
+  },
+  setMonthWeightData (state, data) {
+    state.monthWeightData = data
+  },
+  setMonthPercentageData (state, data) {
+    state.monthPercentageData = data
   }
 }
 
@@ -31,5 +45,13 @@ export const actions = {
   async getDatePercentageData ({ commit }, endDate) {
     const response = await this.$axios.$get(`/api/v1/charts/date_percentage?date=${endDate}`)
     commit('setDatePercentageData', formatData(response.chart))
+  },
+  async getMonthWeightData ({ commit }, endMonth) {
+    const response = await this.$axios.$get(`/api/v1/charts/month_weight?month=${endMonth}`)
+    commit('setMonthWeightData', formatData(response.chart))
+  },
+  async getMonthPercentageData ({ commit }, endMonth) {
+    const response = await this.$axios.$get(`/api/v1/charts/month_percentage?month=${endMonth}`)
+    commit('setMonthPercentageData', formatData(response.chart))
   }
 }

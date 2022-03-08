@@ -18,6 +18,10 @@ class Utils {
     return this.app.$moment(date).format('M月D日')
   }
 
+  formatMonth (date) {
+    return this.app.$moment(date).format('YYYY-MM')
+  }
+
   formErrorWithValidation (error) {
     if (error.response.status === 400) {
       this.store.dispatch('validation/setValidation', error.response.data)
