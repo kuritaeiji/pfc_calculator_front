@@ -15,56 +15,8 @@
     </div>
 
     <v-card-actions class="justify-center">
-      <v-menu v-if="chartType === 'date'" offset-y close-on-content-click>
-        <template #activator="{ attrs, on }">
-          <v-btn
-            large
-            depressed
-            color="btnPrimary"
-            class="white--text font-weight-bold mr-5"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon class="mr-1">
-              mdi-calendar
-            </v-icon>
-            日付を選択する
-          </v-btn>
-        </template>
-        <v-date-picker
-          :value="date"
-          :max="today"
-          locale="ja-jp"
-          first-day-of-week="1"
-          :day-format="date => new Date(date).getDate()"
-          @change="selectDate"
-        />
-      </v-menu>
-
-      <v-menu v-if="chartType === 'month'">
-        <template #activator="{ attrs, on }">
-          <v-btn
-            large
-            depressed
-            color="btnPrimary"
-            class="white--text font-weight-bold mr-5"
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon class="mr-1">
-              mdi-calendar
-            </v-icon>
-            月を選択する
-          </v-btn>
-        </template>
-
-        <v-date-picker
-          type="month"
-          :value="thisMonth"
-          locale="ja-jp"
-          @change="selectMonth"
-        />
-      </v-menu>
+      <chart-date-picker v-if="chartType === 'date'" :date="date" @change="selectDate" />
+      <chart-month-picker v-if="chartType === 'month'" :month="month" @change="selectMonth" />
 
       <v-radio-group v-model="chartType" class="ml-5">
         <v-radio
@@ -94,8 +46,7 @@ export default {
       radios: [
         { label: '1日毎のグラフ', value: 'date' },
         { label: '1月毎のグラフ', value: 'month' }
-      ],
-      today
+      ]
     }
   },
   methods: {

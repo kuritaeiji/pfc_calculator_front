@@ -4,8 +4,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import monthChart from '~/mixins/monthChart'
+import weightChart from '~/mixins/weightChart'
 
 export default {
+  mixins: [monthChart, weightChart],
   props: {
     endMonth: {
       type: String,
@@ -19,22 +22,11 @@ export default {
         labels: this.labels,
         datasets: [
           {
-            label: this.$t('model.attributes.body.weight'),
             data: this.monthWeightData,
-            fill: false,
-            lineTension: 0,
-            backgroundColor: 'Red',
-            borderColor: 'Red'
+            ...this.defaultDataset
           }
         ]
       }
-    },
-    labels () {
-      const labels = []
-      for (let i = 0; i < 10; i++) {
-        labels.unshift(this.$moment(new Date(this.endMonth)).subtract(i, 'month').format('YYYY年M月'))
-      }
-      return labels
     },
     options () {
       const self = this

@@ -4,8 +4,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import dateChart from '~/mixins/dateChart'
+import percentageChart from '~/mixins/percentageChart'
 
 export default {
+  mixins: [dateChart, percentageChart],
   props: {
     endDate: {
       type: String,
@@ -19,35 +22,10 @@ export default {
         labels: this.labels,
         datasets: [
           {
-            label: this.$t('model.attributes.body.percentage'),
             data: this.datePercentageData,
-            lineTension: 0,
-            fill: false,
-            borderColor: 'Blue',
-            backgroundColor: 'Blue'
+            ...this.defaultDataset
           }
         ]
-      }
-    },
-    labels () {
-      const labels = []
-      for (let i = 0; i < 10; i++) {
-        labels.unshift(this.$moment(this.endDate).subtract(i, 'days').format('M/D'))
-      }
-      return labels
-    },
-    options () {
-      const self = this
-      return {
-        tooltips: {
-          callbacks: {
-            label (tooltipItem) {
-              const index = tooltipItem.index
-              const data = self.chartData.datasets[0].data[index]
-              return ` ${data}${self.$t('unit.percentage')}`
-            }
-          }
-        }
       }
     }
   },
