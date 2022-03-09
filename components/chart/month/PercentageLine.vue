@@ -9,12 +9,6 @@ import percentageChart from '~/mixins/percentageChart'
 
 export default {
   mixins: [monthChart, percentageChart],
-  props: {
-    endMonth: {
-      type: String,
-      required: true
-    }
-  },
   computed: {
     ...mapGetters('chart', ['monthPercentageData']),
     chartData () {

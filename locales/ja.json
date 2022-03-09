@@ -7,7 +7,12 @@
     "categories": "カテゴリー一覧",
     "foods": "食材・料理一覧",
     "charts": {
-      "body": "体重・体脂肪率グラフ"
+      "body": "体重・体脂肪率グラフ",
+      "calory": {
+        "and": {
+          "pfc": "カロリー・PFCグラフ"
+        }
+      }
     }
   },
   "snackbar": {

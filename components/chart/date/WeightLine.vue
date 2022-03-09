@@ -9,12 +9,6 @@ import weightChart from '~/mixins/weightChart'
 
 export default {
   mixins: [dateChart, weightChart],
-  props: {
-    endDate: {
-      type: String,
-      required: true
-    }
-  },
   computed: {
     ...mapGetters('chart', ['dateWeightData']),
     chartData () {
