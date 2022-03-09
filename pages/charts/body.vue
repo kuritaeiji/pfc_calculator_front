@@ -18,14 +18,7 @@
       <chart-date-picker v-if="chartType === 'date'" :date="date" @change="selectDate" />
       <chart-month-picker v-if="chartType === 'month'" :month="month" @change="selectMonth" />
 
-      <v-radio-group v-model="chartType" class="ml-5">
-        <v-radio
-          v-for="radio in radios"
-          :key="`radio-${radio.label}`"
-          :label="radio.label"
-          :value="radio.value"
-        />
-      </v-radio-group>
+      <chart-radio :chart-type.sync="chartType" />
     </v-card-actions>
   </v-container>
 </template>
@@ -42,11 +35,7 @@ export default {
     return {
       date: today,
       month: thisMonth,
-      chartType: 'date',
-      radios: [
-        { label: '1日毎のグラフ', value: 'date' },
-        { label: '1月毎のグラフ', value: 'month' }
-      ]
+      chartType: 'date'
     }
   },
   methods: {

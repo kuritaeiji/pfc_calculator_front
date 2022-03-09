@@ -10,6 +10,14 @@ class Utils {
     return this.app.i18n.t(`title.${path}`)
   }
 
+  get today () {
+    return this.formatDate(new Date())
+  }
+
+  get thisMonth () {
+    return this.formatMonth(new Date())
+  }
+
   formatDate (date) {
     return this.app.$moment(date).format('YYYY-MM-DD')
   }

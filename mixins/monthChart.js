@@ -1,4 +1,10 @@
 export default {
+  props: {
+    endMonth: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     labels () {
       const labels = []

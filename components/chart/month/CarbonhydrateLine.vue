@@ -4,19 +4,19 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import dateChart from '~/mixins/dateChart'
-import percentageChart from '~/mixins/percentageChart'
+import monthChart from '~/mixins/monthChart'
+import carbonhydrateChart from '~/mixins/carbonhydrateChart'
 
 export default {
-  mixins: [dateChart, percentageChart],
+  mixins: [monthChart, carbonhydrateChart],
   computed: {
-    ...mapGetters('chart', ['datePercentageData']),
+    ...mapGetters('chart', ['monthCarbonhydrateData']),
     chartData () {
       return {
         labels: this.labels,
         datasets: [
           {
-            data: this.datePercentageData,
+            data: this.monthCarbonhydrateData,
             ...this.defaultDataset
           }
         ]
@@ -24,7 +24,7 @@ export default {
     }
   },
   async beforeCreate () {
-    await this.$store.dispatch('chart/getDatePercentageData', this.$utils.today)
+    await this.$store.dispatch('chart/getMonthCarbonhydrateData', this.$utils.thisMonth)
   }
 }
 </script>

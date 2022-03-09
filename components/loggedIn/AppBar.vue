@@ -68,7 +68,8 @@ export default {
       menus: [
         { name: 'categories' },
         { name: 'foods' },
-        { name: 'charts-body' }
+        { name: 'charts-body' },
+        { name: 'charts-calory-and-pfc' }
       ],
       userMenus: [
         { name: 'logout', method: this.logout },
