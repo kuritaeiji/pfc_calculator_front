@@ -1,8 +1,8 @@
 <template>
   <nuxt-link to="/" class="text-decoration-none">
-    <v-app-bar-title class="font-weight-bold greenText--text text-h5">
+    <v-toolbar-title class="font-weight-bold greenText--text text-h5 text-no-wrap">
       {{ appName }}
-    </v-app-bar-title>
+    </v-toolbar-title>
   </nuxt-link>
 </template>
 
@@ -15,3 +15,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.v-app-bar-title__content{
+  text-overflow: clip;
+  overflow: visible;
+}
+</style>
