@@ -5,7 +5,7 @@
     top
     color="deep-purple lighten-2"
     elevation="0"
-    timeout="-1"
+    timeout="5000"
   >
     {{ snackbar.message }}
     <template #action="{ attrs }">

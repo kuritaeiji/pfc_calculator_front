@@ -1,6 +1,8 @@
 export default async ({ $axios, query, store, app, redirect }) => {
   try {
     await $axios.$put('/api/v1/activate', { token: query.token })
+    store.dispatch('snackbar/setSnackbar', app.i18n.t('snackbar.activatedAccount'))
+    redirect('/login')
   } catch (error) {
     const status = error.response.status
     if (status === 401) {
@@ -11,5 +13,4 @@ export default async ({ $axios, query, store, app, redirect }) => {
     }
     redirect('/')
   }
-  // ログインさせる
 }

@@ -18,7 +18,8 @@
   "snackbar": {
     "signup": "有効化メールを送信しました",
     "expiredActivate": "期限切れのリンクです",
-    "dublicateActivate": "既に有効化されています"
+    "dublicateActivate": "既に有効化されています",
+    "activatedAccount": "アカウントを有効化しました"
   },
   "validation": {
     "login": {

@@ -35,7 +35,9 @@ export const actions = {
   async getCategories ({ commit }) {
     const response = await this.$axios.$get('/api/v1/categories')
     commit('setCategories', response.categories)
-    commit('setTab', response.categories[0].id)
+    if (response.categories.length) {
+      commit('setTab', response.categories[0].id)
+    }
   },
   async createCategory ({ commit }, params) {
     // params = { category: { title: 'new_title' } }
