@@ -41,6 +41,7 @@ import pageTitle from '~/mixins/pageTitle'
 
 export default {
   mixins: [pageTitle],
+  middleware: ['auth'],
   data () {
     return {
       date: this.$utils.today,
