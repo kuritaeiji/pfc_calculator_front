@@ -1,8 +1,8 @@
 import { getters, mutations, actions } from '~/store/food'
 
 const defaultFoods = [
-  { id: 1, title: '肉', par: 100, unit: 'g', calory: 100, protein: 100, fat: 10, carbonhydrate: 1, category: { id: 1, title: 'カテゴリー1' } },
-  { id: 2, title: '魚', par: 100, unit: 'g', calory: 100, protein: 100, fat: 10, carbonhydrate: 1, category: { id: 2, title: 'カテゴリー2' } }
+  { id: 1, title: '肉', per: 100, unit: 'g', calory: 100, protein: 100, fat: 10, carbonhydrate: 1, category: { id: 1, title: 'カテゴリー1' } },
+  { id: 2, title: '魚', per: 100, unit: 'g', calory: 100, protein: 100, fat: 10, carbonhydrate: 1, category: { id: 2, title: 'カテゴリー2' } }
 ]
 
 describe('getters', () => {
@@ -73,7 +73,10 @@ describe('actions', () => {
     $delete () {}
   }
 
-  const commit = jest.fn()
+  let commit
+  beforeEach(() => {
+    commit = jest.fn()
+  })
 
   describe('getFoods', () => {
     it('axiosは/api/v1/foodsパスに$getする', () => {

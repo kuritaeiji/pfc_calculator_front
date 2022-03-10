@@ -24,7 +24,7 @@
     />
     <v-text-field
       ref="calory"
-      v-model.number="setCalory"
+      v-model="setCalory"
       outlined
       :label="$t('model.attributes.food.calory')"
       :rules="rules.calory"

@@ -32,18 +32,27 @@ export const mutations = {
   }
 }
 
+const formattedFood = food => ({
+  ...food,
+  per: Number(food.per),
+  calory: Number(food.calory),
+  protein: Number(food.protein),
+  fat: Number(food.fat),
+  carbonhydrate: Number(food.carbonhydrate)
+})
+
 export const actions = {
   async getFoods ({ commit }) {
     const response = await this.$axios.$get('/api/v1/foods')
-    commit('setFoods', response.foods)
+    commit('setFoods', response.foods.map(f => formattedFood(f)))
   },
   async createFood ({ commit }, params) {
     const response = await this.$axios.$post('/api/v1/foods', params)
-    commit('createFood', response.food)
+    commit('createFood', formattedFood(response.food))
   },
   async updateFood ({ commit }, params) {
     const response = await this.$axios.$put(`/api/v1/foods/${params.food.id}`, params)
-    commit('updateFood', response.food)
+    commit('updateFood', formattedFood(response.food))
   },
   async destroyFood ({ commit }, food) {
     await this.$axios.$delete(`/api/v1/foods/${food.id}`)
