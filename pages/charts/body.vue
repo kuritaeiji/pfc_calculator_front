@@ -29,6 +29,7 @@ import pageTitle from '~/mixins/pageTitle'
 
 export default {
   mixins: [pageTitle],
+  middleware: ['auth'],
   data () {
     const today = this.$utils.formatDate(new Date())
     const thisMonth = this.$utils.formatMonth(new Date())

@@ -11,8 +11,8 @@
 
         <day-card />
 
-        <ui-title :title="$t('chart.pie.pfc')" class="px-0" />
-        <v-card flat max-width="400" tile class="d-flex justify-center pa-3">
+        <ui-title v-if="isShowChart" :title="$t('chart.pie.pfc')" class="px-0" />
+        <v-card v-if="isShowChart" flat max-width="400" tile class="d-flex justify-center pa-3">
           <chart-pfc-pie />
         </v-card>
 
@@ -183,7 +183,11 @@ export default {
     ...mapGetters('ateFood', ['ateFoods']),
     ...mapGetters('category', ['tab']),
     ...mapGetters('food', ['foodsByCategory']),
-    ...mapGetters('dish', ['dishes'])
+    ...mapGetters('dish', ['dishes']),
+    ...mapGetters('day', ['day']),
+    isShowChart () {
+      return this.day.protein || this.day.fat || this.day.carbonhydrate
+    }
   },
   methods: {
     ...mapActions('ateFood', ['createAteFood', 'updateAteFood', 'destroyAteFood']),
