@@ -29,7 +29,14 @@
       </v-menu>
     </v-app-bar>
 
-    <v-navigation-drawer v-model="drawer" app clipped color="white">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      clipped
+      absolute
+      floating
+      color="white"
+    >
       <v-list nav dense>
         <v-list-item v-for="(menu, i) of menus" :key="`menu-${i}`" :to="{ name: menu.name }">
           <v-list-item-content>
