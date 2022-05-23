@@ -43,6 +43,21 @@
           >
             送信する
           </v-btn>
+
+          <v-card
+            flat
+            color="white"
+            class="mt-5"
+          >
+            <v-card-title class="py-1">
+              テストユーザー
+            </v-card-title>
+
+            <v-card-text>
+              メールアドレス: user@example.com<br>
+              パスワード: Password1010
+            </v-card-text>
+          </v-card>
         </v-form>
       </v-card>
     </v-row>
