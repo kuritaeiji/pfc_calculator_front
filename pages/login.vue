@@ -11,13 +11,13 @@ export default {
   layout: 'beforeLoggedIn',
   middleware: 'auth',
   auth: 'guest',
-  data () {
+  data ({ $config: { testUser } }) {
     return {
       isLoading: false,
       params: {
         auth: {
-          email: '',
-          password: ''
+          email: testUser.email,
+          password: testUser.password
         }
       }
     }

@@ -45,6 +45,7 @@
           </v-btn>
 
           <v-card
+            v-if="$route.name === 'login'"
             flat
             color="white"
             class="mt-5"
@@ -54,8 +55,8 @@
             </v-card-title>
 
             <v-card-text>
-              メールアドレス: user@example.com<br>
-              パスワード: Password1010
+              メールアドレス: {{ $config.testUser.email }}<br>
+              パスワード: {{ $config.testUser.password }}
             </v-card-text>
           </v-card>
         </v-form>

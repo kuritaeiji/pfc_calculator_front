@@ -115,6 +115,10 @@ export default {
   },
 
   publicRuntimeConfig: {
-    appName
+    appName,
+    testUser: {
+      email: 'user@example.com',
+      password: 'Password1010'
+    }
   }
 }
