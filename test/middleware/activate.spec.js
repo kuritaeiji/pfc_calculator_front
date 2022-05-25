@@ -14,7 +14,10 @@ describe('activate', () => {
   })
 
   describe('アカウントの有効化に失敗する場合', () => {
-    const store = { dispatch: jest.fn() }
+    let store
+    beforeEach(() => {
+      store = { dispatch: jest.fn() }
+    })
     const msg = 'スナックバーメッセージ'
     const app = {
       i18n: {
@@ -36,7 +39,7 @@ describe('activate', () => {
       }
       await activate({ $axios, store, app, query, redirect })
 
-      expect(store.dispatch).toHaveBeenCalledWith('snackbar/setSnackbar', msg)
+      expect(store.dispatch).toHaveBeenCalledWith('snackbar/setSnackbar', { color: 'error', message: msg })
       expect(redirect).toHaveBeenCalledWith('/')
     })
 
@@ -51,7 +54,7 @@ describe('activate', () => {
       }
       await activate({ $axios, query, store, app, redirect })
 
-      expect(store.dispatch).toHaveBeenCalledWith('snackbar/setSnackbar', msg)
+      expect(store.dispatch).toHaveBeenCalledWith('snackbar/setSnackbar', { color: 'error', message: msg })
       expect(redirect).toHaveBeenCalledWith('/')
     })
   })

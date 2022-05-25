@@ -13,7 +13,7 @@ describe('middleware/router', () => {
   it('snackbarのpageCountを1増やす', () => {
     const store = createStore()
     routerMiddleware({ store })
-    expect(store.dispatch.mock.calls[0][0]).toEqual('snackbar/setSnackbar')
+    expect(store.dispatch.mock.calls[0][0]).toEqual('snackbar/plusPageCount')
   })
 
   it('snackbarのpageCountが2以上の場合resetSnackbarを呼びだす', () => {
@@ -23,7 +23,7 @@ describe('middleware/router', () => {
   })
 
   it('snackbarのpageCountが2未満の場合resetSnackbarを呼び出さない', () => {
-    const store = createStore(2)
+    const store = createStore(1)
     routerMiddleware({ store })
     expect(store.dispatch.mock.calls.length).toEqual(1)
   })
