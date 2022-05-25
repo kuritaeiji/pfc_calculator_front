@@ -2,6 +2,7 @@
   <v-app>
     <logged-in-app-bar />
     <v-main class="main-background-color">
+      <ui-snackbar />
       <nuxt />
     </v-main>
   </v-app>

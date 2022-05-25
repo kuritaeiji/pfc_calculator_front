@@ -65,6 +65,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data () {
     return {
@@ -93,11 +95,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions('snackbar', ['setSnackbar', 'plusPageCount']),
     async logout () {
       await this.$auth.logout()
-      if (this.$route.name === 'index') {
-        location.reload()
-      }
+      this.setSnackbar({ message: this.$t('snackbar.logout') })
     },
     confirmWithdraw () {
       this.dialog = true
@@ -105,6 +106,7 @@ export default {
     async withdraw () {
       await this.$axios.$delete('/api/v1/withdraw')
       await this.logout()
+      this.setSnackbar({ message: this.$t('snackbar.withdraw') })
       this.dialog = false
     },
     selectDate (date) {

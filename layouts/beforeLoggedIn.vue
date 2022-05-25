@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <before-logged-in-app-bar />
-    <ui-snackbar />
     <v-main class="main-background-color">
+      <ui-snackbar />
       <nuxt />
     </v-main>
   </v-app>

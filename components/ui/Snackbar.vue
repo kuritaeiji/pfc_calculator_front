@@ -1,19 +1,15 @@
 <template>
-  <v-snackbar
+  <v-alert
     :value="snackbar.isShow"
-    app
-    top
-    color="deep-purple lighten-2"
-    elevation="0"
-    timeout="5000"
+    dark
+    tile
+    dismissible
+    :color="snackbar.color"
+    class="font-weight-bold"
+    @input="closeSnackbar"
   >
     {{ snackbar.message }}
-    <template #action="{ attrs }">
-      <v-btn text v-bind="attrs" @click="resetSnackbar">
-        閉じる
-      </v-btn>
-    </template>
-  </v-snackbar>
+  </v-alert>
 </template>
 
 <script>
@@ -21,6 +17,11 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: mapGetters('snackbar', ['snackbar']),
-  methods: mapActions('snackbar', ['resetSnackbar'])
+  methods: {
+    ...mapActions('snackbar', ['resetSnackbar']),
+    closeSnackbar () {
+      this.resetSnackbar()
+    }
+  }
 }
 </script>

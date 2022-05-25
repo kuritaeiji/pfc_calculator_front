@@ -24,10 +24,12 @@ export default {
   },
   methods: {
     ...mapActions('validation', ['setValidation']),
+    ...mapActions('snackbar', ['setSnackbar']),
     async login () {
       this.isLoading = true
       try {
         await this.$auth.loginWith('local', { data: this.params })
+        this.setSnackbar({ message: this.$t('snackbar.login') })
       } catch (error) {
         this.reject(error)
       }

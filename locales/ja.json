@@ -19,7 +19,10 @@
     "signup": "有効化メールを送信しました",
     "expiredActivate": "期限切れのリンクです",
     "dublicateActivate": "既に有効化されています",
-    "activatedAccount": "アカウントを有効化しました"
+    "activatedAccount": "アカウントを有効化しました",
+    "login": "ログインしました",
+    "logout": "ログアウトしました",
+    "withdraw": "退会しました"
   },
   "validation": {
     "login": {

@@ -28,7 +28,7 @@ export default {
       this.isLoading = true
       try {
         await this.$axios.$post('/api/v1/signup', this.params)
-        this.setSnackbar(this.$t('snackbar.signup'))
+        this.setSnackbar({ message: this.$t('snackbar.signup') })
         this.$router.push('/')
       } catch (error) {
         this.$utils.formErrorWithValidation(error)
