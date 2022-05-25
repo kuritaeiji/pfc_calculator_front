@@ -8,22 +8,26 @@
 
         <ui-validation />
 
-        <v-form v-model="isValid">
+        <v-form ref="form" v-model="isValid">
           <v-text-field
             v-model="setEmail"
             outlined
+            validate-on-blur
             label="メールアドレス"
             type="email"
             :placeholder="form.email.placeholder"
             :rules="form.email.rules"
+            @keypress.enter="submit"
           />
           <v-text-field
             v-model="setPassword"
             outlined
+            validate-on-blur
             label="パスワード"
             type="password"
             :placeholder="form.password.placeholder"
             :rules="form.password.rules"
+            @keypress.enter="submit"
           />
 
           <v-card-text v-if="isSignup" class="text-caption greyText--text pt-0">
@@ -31,18 +35,7 @@
             半角英数字、ハイフン、アンダーバーが使えます。
           </v-card-text>
 
-          <v-btn
-            large
-            block
-            depressed
-            color="btnPrimary"
-            class="white--text font-weight-bold"
-            :disabled="!isValid || isLoading"
-            :loading="isLoading"
-            @click="submit"
-          >
-            送信する
-          </v-btn>
+          <ui-form-btn text="ログインする" :is-loading="isLoading" @click="submit" />
 
           <v-card
             v-if="$route.name === 'login'"
@@ -92,7 +85,7 @@ export default {
   },
   computed: {
     isSignup () {
-      return this.title === this.$t('title.signup')
+      return this.$route.name === 'signup'
     },
     form () {
       if (this.isSignup) {
@@ -137,7 +130,9 @@ export default {
   },
   methods: {
     submit () {
-      this.$emit('submit')
+      if (this.$refs.form.validate()) {
+        this.$emit('submit')
+      }
     }
   }
 }

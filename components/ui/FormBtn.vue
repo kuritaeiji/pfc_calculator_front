@@ -5,7 +5,7 @@
     depressed
     color="btnPrimary"
     class="white--text font-weight-bold"
-    :disabled="!isValid || isLoading"
+    :disabled="isLoading"
     :loading="isLoading"
     @click="click"
   >
@@ -19,10 +19,6 @@ export default {
     text: {
       type: String,
       default: '送信する'
-    },
-    isValid: {
-      type: Boolean,
-      default: false
     },
     isLoading: {
       type: Boolean,

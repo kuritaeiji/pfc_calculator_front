@@ -9,7 +9,7 @@
         <ui-validation />
 
         <slot name="form" />
-        <ui-form-btn :is-valid="isValid" :is-loading="isLoading" @click="clickFormBtn" />
+        <ui-form-btn :is-loading="isLoading" @click="clickFormBtn" />
       </v-card>
     </v-dialog>
   </div>
