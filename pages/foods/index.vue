@@ -32,8 +32,8 @@
           @click-form-btn="_createFood"
         >
           <template #form>
-            <v-form ref="createForm" v-model="create.isValid">
-              <food-form v-bind.sync="create.params.food" />
+            <v-form ref="createForm" v-model="create.isValid" @submit.prevent>
+              <food-form v-bind.sync="create.params.food" @submit="_createFood" />
             </v-form>
           </template>
         </logged-in-form-create-dialog>
@@ -48,8 +48,8 @@
       @click-form-btn="_updateFood"
     >
       <template #form>
-        <v-form ref="updateForm" v-model="update.isValid">
-          <food-form v-bind.sync="update.params.food" />
+        <v-form ref="updateForm" v-model="update.isValid" @submit.prevent>
+          <food-form v-bind.sync="update.params.food" @submit="_updateFood" />
         </v-form>
       </template>
     </logged-in-form-update-dialog>
@@ -107,7 +107,7 @@ export default {
     ...mapActions('food', ['createFood', 'updateFood', 'destroyFood']),
     ...mapActions('validation', ['resetValidation']),
     async _createFood () {
-      if (this.create.isValid) {
+      if (this.$refs.createForm.validate()) {
         this.create.isLoading = true
         try {
           await this.createFood(this.create.params)
@@ -131,7 +131,7 @@ export default {
       this.resetValidation()
     },
     async _updateFood () {
-      if (this.update.isValid) {
+      if (this.$refs.updateForm.validate()) {
         this.update.isLoading = true
         try {
           await this.updateFood(this.update.params)

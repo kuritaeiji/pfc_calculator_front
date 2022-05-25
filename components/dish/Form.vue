@@ -3,36 +3,46 @@
     <v-text-field
       v-model="setTitle"
       outlined
+      validate-on-blur
       :label="form.title.label"
       :rules="form.title.rules"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="calory"
       v-model="setCalory"
       outlined
+      validate-on-blur
       :label="form.calory.label"
       :rules="form.calory.rules"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="protein"
       v-model="setProtein"
       outlined
+      validate-on-blur
       :label="form.protein.label"
       :rules="form.protein.rules"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="fat"
       v-model="setFat"
       outlined
+      validate-on-blur
       :label="form.fat.label"
       :rules="form.fat.rules"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="carbonhydrate"
       v-model="setCarbonhydrate"
       outlined
+      validate-on-blur
       :label="form.carbonhydrate.label"
       :rules="form.carbonhydrate.rules"
+      @keypress.enter="submit"
     />
   </div>
 </template>
@@ -131,6 +141,11 @@ export default {
       set (newVal) {
         this.setOnlyNumber('carbonhydrate', newVal)
       }
+    }
+  },
+  methods: {
+    submit () {
+      this.$emit('submit')
     }
   }
 }

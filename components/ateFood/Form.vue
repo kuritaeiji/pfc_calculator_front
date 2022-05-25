@@ -4,8 +4,10 @@
       ref="amount"
       v-model="setAmount"
       outlined
+      validate-on-blur
       :label="label"
       :rules="rules"
+      @keypress.enter="submit"
     />
 
     <v-card-text class="pa-0">
@@ -82,6 +84,9 @@ export default {
   methods: {
     selectFood (food) {
       this.$emit('update:food_id', food.id)
+    },
+    submit () {
+      this.$emit('submit')
     }
   }
 }

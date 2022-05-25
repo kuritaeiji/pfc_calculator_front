@@ -14,7 +14,7 @@
 
             <v-card-actions class="d-flex">
               <logged-in-form-update-dialog-btn @open="openUpdateDialog(category)" />
-              <logged-in-form-destroy-dialog-btn @open="openDestroyDialog(category)"/>
+              <logged-in-form-destroy-dialog-btn @open="openDestroyDialog(category)" />
             </v-card-actions>
           </v-card>
         </template>
@@ -28,8 +28,8 @@
           @click-form-btn="_createCategory"
         >
           <template #form>
-            <v-form ref="createForm" v-model="create.isValid">
-              <category-form v-bind.sync="create.params.category" />
+            <v-form ref="createForm" v-model="create.isValid" @submit.prevent>
+              <category-form v-bind.sync="create.params.category" @submit="_createCategory" />
             </v-form>
           </template>
         </logged-in-form-create-dialog>
@@ -42,8 +42,8 @@
           @click-form-btn="_updateCategory"
         >
           <template #form>
-            <v-form ref="updateForm" v-model="update.isValid">
-              <category-form v-bind.sync="update.params.category" />
+            <v-form ref="updateForm" v-model="update.isValid" @submit.prevent>
+              <category-form v-bind.sync="update.params.category" @submit="_updateCategory" />
             </v-form>
           </template>
         </logged-in-form-update-dialog>
@@ -93,7 +93,7 @@ export default {
     ...mapActions('category', ['createCategory', 'updateCategory', 'destroyCategory']),
     ...mapActions('validation', ['resetValidation']),
     async _createCategory () {
-      if (this.create.isValid) {
+      if (this.$refs.createForm.validate()) {
         this.create.isLoading = true
         try {
           await this.createCategory(this.create.params)
@@ -127,7 +127,7 @@ export default {
       this.update.dialog = true
     },
     async _updateCategory () {
-      if (this.update.isValid) {
+      if (this.$refs.updateForm.validate()) {
         this.update.isLoading = true
         try {
           await this.updateCategory(this.update.params)

@@ -2,8 +2,10 @@
   <v-text-field
     v-model="setTitle"
     outlined
+    validate-on-blur
     label="カテゴリー名"
     :rules="rules"
+    @keypress.enter="submit"
   />
 </template>
 
@@ -29,6 +31,11 @@ export default {
       set (newValue) {
         this.$emit('update:title', newValue)
       }
+    }
+  },
+  methods: {
+    submit (event) {
+      this.$emit('submit')
     }
   }
 }

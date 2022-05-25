@@ -3,62 +3,78 @@
     <v-text-field
       v-model="setTitle"
       outlined
+      validate-on-blur
       :label="$t('model.attributes.food.title')"
       :rules="rules.title"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="per"
       v-model="setPer"
       outlined
+      validate-on-blur
       :label="$t('model.attributes.food.per')"
       placeholder="100"
       :rules="rules.per"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="unit"
       v-model="setUnit"
       outlined
+      validate-on-blur
       :label="$t('model.attributes.food.unit')"
       placeholder="g"
       :rules="rules.unit"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="calory"
       v-model="setCalory"
       outlined
+      validate-on-blur
       :label="$t('model.attributes.food.calory')"
       :rules="rules.calory"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="protein"
       v-model="setProtein"
       outlined
+      validate-on-blur
       :label="$t('model.attributes.food.protein')"
       :rules="rules.protein"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="fat"
       v-model="setFat"
       outlined
+      validate-on-blur
       :label="$t('model.attributes.food.fat')"
       :rules="rules.fat"
+      @keypress.enter="submit"
     />
     <v-text-field
       ref="carbonhydrate"
       v-model="setCarbonhydrate"
       outlined
+      validate-on-blur
       :label="$t('model.attributes.food.carbonhydrate')"
       :rules="rules.carbonhydrate"
+      @keypress.enter="submit"
     />
     <v-select
       ref="categoryId"
       v-model="setCategoryId"
       outlined
+      validate-on-blur
       :label="$t('model.category')"
       :items="selectCategoryItems"
       item-text="text"
       item-value="value"
       :rules="rules.category_id"
+      @keypress.enter="submit"
     />
   </div>
 </template>
@@ -187,6 +203,11 @@ export default {
     },
     selectCategoryItems () {
       return this.categories.map(c => ({ text: c.title, value: c.id }))
+    }
+  },
+  methods: {
+    submit () {
+      this.$emit('submit')
     }
   }
 }

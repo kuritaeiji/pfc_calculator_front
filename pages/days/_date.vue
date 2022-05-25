@@ -46,8 +46,8 @@
             @click-form-btn="_createAteFood"
           >
             <template #form>
-              <v-form ref="createAteFoodForm" v-model="ateFood.create.isValid">
-                <ate-food-form v-bind.sync="ateFood.create.params.ate_food" />
+              <v-form ref="createAteFoodForm" v-model="ateFood.create.isValid" @submit.prevent>
+                <ate-food-form v-bind.sync="ateFood.create.params.ate_food" @submit="_createAteFood" />
               </v-form>
             </template>
           </logged-in-form-create-dialog>
@@ -61,8 +61,8 @@
             @click-form-btn="_createDish"
           >
             <template #form>
-              <v-form ref="createDishForm" v-model="dish.create.isValid">
-                <dish-form v-bind.sync="dish.create.params.dish" />
+              <v-form ref="createDishForm" v-model="dish.create.isValid" @submit.prevent>
+                <dish-form v-bind.sync="dish.create.params.dish" @submit="_createDish" />
               </v-form>
             </template>
           </logged-in-form-create-dialog>
@@ -76,8 +76,8 @@
           @click-form-btn="_updateAteFood"
         >
           <template #form>
-            <v-form ref="updateAteFood" v-model="ateFood.update.isValid">
-              <ate-food-form v-bind.sync="ateFood.update.params.ate_food" />
+            <v-form ref="updateAteFood" v-model="ateFood.update.isValid" @submit.prevent>
+              <ate-food-form v-bind.sync="ateFood.update.params.ate_food" @submit="_updateAteFood" />
             </v-form>
           </template>
         </logged-in-form-update-dialog>
@@ -90,8 +90,8 @@
           @click-form-btn="_updateDish"
         >
           <template #form>
-            <v-form ref="updateDishForm" v-model="dish.update.isValid">
-              <dish-form v-bind.sync="dish.update.params.dish" />
+            <v-form ref="updateDishForm" v-model="dish.update.isValid" @submit.prevent>
+              <dish-form v-bind.sync="dish.update.params.dish" @submit="_updateDish" />
             </v-form>
           </template>
         </logged-in-form-update-dialog>
@@ -199,7 +199,7 @@ export default {
         return this.setValidation([this.$t('validation.ateFood.foodId')])
       }
 
-      if (this.ateFood.create.isValid) {
+      if (this.$refs.createAteFoodForm.validate()) {
         this.ateFood.create.isLoading = true
         try {
           await this.createAteFood(this.ateFood.create.params)
@@ -227,7 +227,7 @@ export default {
         return this.setValidation([this.$t('validation.ateFood.foodId')])
       }
 
-      if (this.ateFood.update.isValid) {
+      if (this.$refs.updateAteFood.validate()) {
         this.ateFood.update.isLoading = true
         try {
           await this.updateAteFood(this.ateFood.update.params)
@@ -255,7 +255,7 @@ export default {
       this.ateFood.destroy.dialog = false
     },
     async _createDish () {
-      if (this.dish.create.isValid) {
+      if (this.$refs.createDishForm.validate()) {
         this.dish.create.isLoading = true
         try {
           await this.createDish(this.dish.create.params)
@@ -279,7 +279,7 @@ export default {
       this.dish.update.params.dish = { ...dish }
     },
     async _updateDish () {
-      if (this.dish.update.isValid) {
+      if (this.$refs.updateDishForm.validate()) {
         try {
           await this.updateDish(this.dish.update.params)
           this.updateDishResolve()
